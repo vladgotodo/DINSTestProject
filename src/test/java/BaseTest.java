@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeSuite;
 
+import static io.restassured.RestAssured.given;
+
 public class BaseTest {
     Logger logger = LoggerFactory.getLogger(BaseTest.class);
     private static final String baseURI = "https://jsonplaceholder.typicode.com";
@@ -17,5 +19,12 @@ public class BaseTest {
         RestAssured.baseURI = baseURI;
         logger.info("Setting RestAssured basePath");
         RestAssured.basePath = basePath;
+
+        given()
+                .log().ifValidationFails()
+                .when()
+                .get()
+                .then()
+                .statusCode(200).log().ifError();
     }
 }

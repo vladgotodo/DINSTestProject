@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -11,16 +12,18 @@ import static org.hamcrest.Matchers.*;
 public class Tests extends BaseTest {
     @Test
     public void checkFilterByQueryParametersWithoutSerialization() {
-        when().
-                get("?userId={id}", 5).
-                then().
-                statusCode(200).
-                body("id[1]", equalTo(42));
+        given()
+                .when()
+                .get("?userId={id}", 5)
+                .then()
+                .statusCode(200)
+                .body("id[1]", equalTo(42)).log().ifError();
     }
 
     @Test
     public void checkGetListOfAllResourcesSimple() {
-        Response response = when().get();
+        Response response = when()
+                .get();
 
         List<Post> returnedArtworks = Arrays.asList(response.getBody().as(Post[].class));
 
@@ -32,7 +35,8 @@ public class Tests extends BaseTest {
         //assuming that every user must have at least one post
         int randomUserId = (int)(Math.random()*((10-1)+1))+1;
 
-        Response response = when().get("?userId={id}", randomUserId);
+        Response response = when()
+                .get("?userId={id}", randomUserId);
 
         List<Post> returnedArtworks = Arrays.asList(response.getBody().as(Post[].class));
 
@@ -44,7 +48,8 @@ public class Tests extends BaseTest {
         //assuming that every post's id is unique
         int randomPostId = (int)(Math.random()*((100-1)+1))+1;
 
-        Response response = when().get("?id={id}", randomPostId);
+        Response response = when()
+                        .get("?id={id}", randomPostId);
 
         List<Post> returnedArtworks = Arrays.asList(response.getBody().as(Post[].class));
 
