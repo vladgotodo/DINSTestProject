@@ -2,14 +2,14 @@ import io.restassured.RestAssured;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 
 public class BaseTest {
     Logger logger = LoggerFactory.getLogger(BaseTest.class);
     private static final String baseURI = "https://jsonplaceholder.typicode.com";
     private static final String basePath = "/posts";
 
-    @BeforeClass
+    @BeforeSuite
     public void setup() {
         BasicConfigurator.configure();
         logger.info("Logging started");
