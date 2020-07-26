@@ -8,8 +8,8 @@ import static io.restassured.RestAssured.given;
 
 public class BaseTest {
     Logger logger = LoggerFactory.getLogger(BaseTest.class);
-    private static final String baseURI = "https://jsonplaceholder.typicode.com";
-    private static final String basePath = "/posts";
+    private static final String baseURI = System.getProperty("base.uri");//"https://jsonplaceholder.typicode.com";
+    private static final String basePath = System.getProperty("base.path");//"/posts";
 
     @BeforeSuite
     public void setup() {
