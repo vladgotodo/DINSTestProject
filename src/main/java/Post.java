@@ -1,10 +1,13 @@
 import java.io.Serializable;
 
 public class Post implements Serializable {
-    private final int userId;
-    private final int id;
-    private final String title;
-    private final String body;
+    private int userId;
+    private int id;
+    private String title;
+    private String body;
+
+    public Post() {
+    }
 
     public Post(int userId, int id, String title, String body) {
         this.userId = userId;
